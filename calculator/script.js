@@ -15,7 +15,7 @@ let numbers = document.querySelectorAll('.number'),
             numberPress(e.target.innerText);
         }); 
     };
-
+       
     for (let i=0; i<operations.length; i++) {
         let operatorBtn = operations[i];
         operatorBtn.addEventListener('click', function(e){
@@ -55,7 +55,7 @@ let numbers = document.querySelectorAll('.number'),
         } else  { 
             MemoryNewNumber = true;
             if (MemoryPendingOperation === '+') {
-                MemoryCurrentNumber += parseFloat (localOperationMemory);  
+                MemoryCurrentNumber += parseFloat(localOperationMemory);  
             } else if (MemoryPendingOperation === '-'){
                 MemoryCurrentNumber -= parseFloat (localOperationMemory);
             } else if (MemoryPendingOperation === '*'){
@@ -65,10 +65,10 @@ let numbers = document.querySelectorAll('.number'),
             } else {
                 MemoryCurrentNumber = parseFloat (localOperationMemory);
             };
-                display.value = MemoryCurrentNumber;
+                display.value = +MemoryCurrentNumber.toFixed(7);
                 MemoryPendingOperation = op;
         };    
-        console.log('клик по кнопке операции ' + op + '!' );
+        // console.log('клик по кнопке операции ' + op + '!' );
     };
 
     function clear(id) {
@@ -81,7 +81,7 @@ let numbers = document.querySelectorAll('.number'),
             MemoryCurrentNumber = 0;
             MemoryPendingOperation = '';
         }
-        console.log('клик по кнопке '   + id + "!" );
+        // console.log('клик по кнопке '   + id + "!" );
         
     };
 
@@ -102,4 +102,3 @@ let numbers = document.querySelectorAll('.number'),
     //function result(params) {
      //   console.log('клик по кнопке результат');
     //};
-    
