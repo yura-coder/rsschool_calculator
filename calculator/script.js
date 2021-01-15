@@ -7,7 +7,7 @@ let numbers = document.querySelectorAll('.number'),
     MemoryCurrentNumber = 0,
     MemoryNewNumber = false,
     MemoryPendingOperation = '';
-  
+    //console.log(operations);
   
     for (let i=0; i<numbers.length; i++) {
         let number = numbers[i];
@@ -19,7 +19,7 @@ let numbers = document.querySelectorAll('.number'),
     for (let i=0; i<operations.length; i++) {
         let operatorBtn = operations[i];
         operatorBtn.addEventListener('click', function(e){
-          //console.log(e.target.innerText);
+          console.log(e.target.innerText);
           operator(e.target.innerText);
         }); 
         }; 
@@ -51,25 +51,35 @@ let numbers = document.querySelectorAll('.number'),
     function operator(op) {
        let localOperationMemory = display.value;
         if (MemoryNewNumber && MemoryPendingOperation !== '=') {
-            display.value = MemoryCurrentNumber;
+            display.value = MemoryPendingOperation + MemoryCurrentNumber;
         } else  { 
             MemoryNewNumber = true;
             if (MemoryPendingOperation === '+') {
                 MemoryCurrentNumber += parseFloat(localOperationMemory);  
             } else if (MemoryPendingOperation === '-'){
                 MemoryCurrentNumber -= parseFloat (localOperationMemory);
-            } else if (MemoryPendingOperation === '*'){
+            } else if (MemoryPendingOperation === '*') {
                 MemoryCurrentNumber *= parseFloat (localOperationMemory);
-            } else if (MemoryPendingOperation === '/'){
+            } else if (MemoryPendingOperation === '/') {
                 MemoryCurrentNumber /= parseFloat (localOperationMemory);
+            } else if (MemoryPendingOperation === 'XY') {
+                MemoryCurrentNumber = parseFloat (MemoryCurrentNumber) ** (localOperationMemory);
             } else {
                 MemoryCurrentNumber = parseFloat (localOperationMemory);
-            };
+            }; 
                 display.value = +MemoryCurrentNumber.toFixed(7);
                 MemoryPendingOperation = op;
-        };    
+        };  if   (MemoryPendingOperation === '√') {
+                MemoryCurrentNumber = parseFloat (MemoryCurrentNumber) ** (1/2);
+            };
+            
+            
         // console.log('клик по кнопке операции ' + op + '!' );
-    };
+    };  
+        // let localOperationMemory  = display.value;
+        //  if ( MemoryNewNumber && MemoryPendingOperation === '-') {
+        //     MemoryNewNumber = '-';
+        //   }; display.value = MemoryNewNumber;
 
     function clear(id) {
         if (id==='ce') {
