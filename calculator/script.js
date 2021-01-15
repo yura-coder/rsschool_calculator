@@ -19,16 +19,16 @@ let numbers = document.querySelectorAll('.number'),
     for (let i=0; i<operations.length; i++) {
         let operatorBtn = operations[i];
         operatorBtn.addEventListener('click', function(e){
-          console.log(e.target.innerText);
+        //   console.log(e.target.innerText);
           operator(e.target.innerText);
         }); 
-        }; 
+    }; 
     
     for (let i=0; i<clearBtns.length; i++) {
             let clearBtn = clearBtns[i];
             clearBtn.addEventListener('click', function(e) {
             clear(e.srcElement.id);
-    });
+        });
     }; 
 
     decimalBtn.addEventListener('click', decimal );
@@ -51,7 +51,7 @@ let numbers = document.querySelectorAll('.number'),
     function operator(op) {
        let localOperationMemory = display.value;
         if (MemoryNewNumber && MemoryPendingOperation !== '=') {
-            display.value = MemoryPendingOperation + MemoryCurrentNumber;
+            display.value = MemoryCurrentNumber;
         } else  { 
             MemoryNewNumber = true;
             if (MemoryPendingOperation === '+') {
@@ -76,11 +76,7 @@ let numbers = document.querySelectorAll('.number'),
             
         // console.log('клик по кнопке операции ' + op + '!' );
     };  
-        // let localOperationMemory  = display.value;
-        //  if ( MemoryNewNumber && MemoryPendingOperation === '-') {
-        //     MemoryNewNumber = '-';
-        //   }; display.value = MemoryNewNumber;
-
+        
     function clear(id) {
         if (id==='ce') {
             display.value = '0';
