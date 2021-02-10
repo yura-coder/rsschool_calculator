@@ -5,30 +5,32 @@ let numbers = document.querySelectorAll('.number'),
     resultBtn = document.getElementById('result'),
     display = document.getElementById('display'),
     MemoryCurrentNumber = 0,
-    MemoryNewNumber = false,
+    MemoryNewNumber = true,
     MemoryPendingOperation = '';
     //console.log(operations);
   
-    for (let i=0; i<numbers.length; i++) {
-        let number = numbers[i];
-        number.addEventListener('click', function(e) {
-            numberPress(e.target.innerText);
-        }); 
-    };
+    if ( MemoryNewNumber === true && MemoryPendingOperation === '') {
        
     for (let i=0; i<operations.length; i++) {
         let operatorBtn = operations[i];
         operatorBtn.addEventListener('click', function(e){
-        //   console.log(e.target.innerText);
+          console.log(e.target.innerText);
           operator(e.target.innerText);
         }); 
+        }; 
     }; 
+    for (let i=0; i<numbers.length; i++) {
+            let number = numbers[i];
+            number.addEventListener('click', function(e) {
+                numberPress(e.target.innerText);
+            }); 
+        };
     
     for (let i=0; i<clearBtns.length; i++) {
             let clearBtn = clearBtns[i];
             clearBtn.addEventListener('click', function(e) {
             clear(e.srcElement.id);
-        });
+    });
     }; 
 
     decimalBtn.addEventListener('click', decimal );
@@ -57,13 +59,13 @@ let numbers = document.querySelectorAll('.number'),
             if (MemoryPendingOperation === '+') {
                 MemoryCurrentNumber += parseFloat(localOperationMemory);  
             } else if (MemoryPendingOperation === '-'){
-                MemoryCurrentNumber -= parseFloat (localOperationMemory);
+                MemoryCurrentNumber += parseFloat (localOperationMemory);
             } else if (MemoryPendingOperation === '*') {
                 MemoryCurrentNumber *= parseFloat (localOperationMemory);
             } else if (MemoryPendingOperation === '/') {
                 MemoryCurrentNumber /= parseFloat (localOperationMemory);
-            } else if (MemoryPendingOperation === 'XY') {
-                MemoryCurrentNumber = parseFloat (MemoryCurrentNumber) ** (localOperationMemory);
+            } else if (MemoryPendingOperation === 'XY' || MemoryPendingOperation === 'Y') {
+                MemoryCurrentNumber = parseFloat (MemoryCurrentNumber) ** (localOperationMemory);   
             } else {
                 MemoryCurrentNumber = parseFloat (localOperationMemory);
             }; 
@@ -71,12 +73,17 @@ let numbers = document.querySelectorAll('.number'),
                 MemoryPendingOperation = op;
         };  if   (MemoryPendingOperation === '√') {
                 MemoryCurrentNumber = parseFloat (MemoryCurrentNumber) ** (1/2);
+                MemoryNewNumber = false;
+                display.value = +MemoryCurrentNumber.toFixed(7);
+
             };
-            
-            
-        // console.log('клик по кнопке операции ' + op + '!' );
+                   
+        //  console.log('клик по кнопке операции ' + op + '!' );
+        //  console.log(MemoryCurrentNumber );
+        //  console.log(localOperationMemory );
+         
     };  
-        
+
     function clear(id) {
         if (id==='ce') {
             display.value = '0';
